@@ -4,10 +4,8 @@ from typing import Literal
 client = OpenAI()
 
 
-def send_message(message: str, role: Literal['system', 'user',], context: list[dict] = None,
+def send_message(message: str, role: Literal['system', 'user',], context: list[dict],
                  model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo'):
-    if context is None:
-        context = []
     context.append({"role": role, "content": message})
 
     completion = client.chat.completions.create(
