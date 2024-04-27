@@ -67,11 +67,11 @@ def get_meta_data(context: list[dict]):
     return send_message(prompt, "system", context)
 
 
-def generate_response(user_data: dict, context: list[dict], car_data: dict = None):
+def generate_response(user_data: dict, context: list[dict], car_data: str = None):
     if car_data != None:
         full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + str(car_data)
     else:
         full_profile = "[Current profile]:" + str(user_data)
 
-    context.append({"role": "system", "content": "If preferable use this data about the current context: " + get_meta_data(context)})
-    return send_message(full_profile, "assistant", context)
+    system_prompt = "Use this data for your next response: " + get_meta_data([{"role": "user", "content": full_profile}])})
+    return send_message(system_prompt, "system", context)
