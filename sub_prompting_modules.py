@@ -4,7 +4,7 @@ import logging.config
 from unittest import case
 
 from constants import segments
-from open_ai_call import send_message
+from open_ai_call import send_message, stream_message
 from typing import Literal
 
 logging.config.fileConfig(
@@ -48,22 +48,30 @@ def mod_context_segments(current_segment: Literal['franz', 'peter', 'sally', 'vi
     return current_context
 
 
-def craft_first_message(user_data: str,context_mem) -> str:
+def craft_first_message(user_data: str, context_mem) -> str:
     logger.info("Crafting first message")
     context = [{'role': 'system',
-                'content': "You are a skilled and helpful assistant, greeting a customer that wants to buy an electric vehicle."
-                           "You reference data you gat from the users profile and try do deduce his purchase intention to best tailor your response."
-                           "You leverage data about how to market to the customer, to immediately make a captivating offer."
+                'content': "You are a skilled and helpful assistant, greeting a mercedes customer and offering insights on electric vehicles."
+                           "You reference data you get from the users profile and try do deduce his purchase intention to best tailor your response."
+                           "You try to make the introduction as compelling and concise as possible, and highlight features that the user likes."
                            "You only suggest mercedes cars"}]
     context.extend(context_mem)
     prompt = ("User:\n"
               f"{user_data}\n")
 
-    resp = send_message(message=prompt, role='user', context=context).content
-    return resp
+    return stream_message(message=prompt, role='user', context=context)
 
 
-if __name__ == '__main__':
-    with open('/home/benjaminkroeger/Documents/Hackathons/TumAI/hypersuscap/profiles/profile2.json', 'r') as f:
-        user_data = str(json.load(f))
-    identify_customer_segment(user_data)
+def get_meta_data(context: list[dict]):
+    prompt = "retrieve all valuable data from this current context, write a short description of this person"
+    return send_message(prompt, "system", context).content
+
+
+def generate_response(user_data: dict, context: list[dict], car_data: dict = None):
+    if car_data != None:
+        full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + str(car_data)
+    else:
+        full_profile = "[Current profile]:" + str(user_data)
+
+    context.append({"role": "system", "content": "If preferable use this data about the current context: " + get_meta_data(context)})
+    return send_message(full_profile, "assistant", context).content

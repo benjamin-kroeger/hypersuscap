@@ -15,20 +15,7 @@ def get_profile(profile_num:int):
     return data['demographics']
 
 
-def get_meta_data(context:list[dict]):
-    prompt = "retrieve all valuable data from this current context, write a short description of this person"
-    return send_message(prompt, "system", context).content
 
-def generate_response(profile_num:int, context:list[dict], car_data:dict=None): 
-    
-    profile = get_profile(profile_num)
-    if car_data != None:
-        full_profile = "[Current profile:]" + str(profile) + "[Car data:]" + str(data)
-    else:
-        full_profile = "[Current profile]:" + str(profile)
-
-    context.append({"role": "system", "content": "If preferable use this data about the current context: " + get_meta_data(context)})
-    return send_message(full_profile, "assistant", context).content
 
 
 if __name__=="__main__":
