@@ -133,7 +133,7 @@ def enhance_cta(context):
 
     context_new.insert(0, {"role": "system", "content": system_prompt})
 
-    prompt = f"""Use the last response of the assistant and the data of the CTA to determine if the CTA should be added to the response. Only trigger a CTA, when it seems realy appropriate.
+    prompt = f"""Use the last response of the assistant and the data of the CTA to determine if the CTA should be added to the response. Only trigger a CTA, when it seems realy appropriate. Do not trigger a CTA, if it seems forced.
 
     Last Assistant Reponse: {str(context_new[-1]["content"])}
 
