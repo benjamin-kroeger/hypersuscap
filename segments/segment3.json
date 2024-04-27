@@ -1,0 +1,37 @@
+{
+  "demographics": {
+    "percentage_of_customer_base": "8%",
+    "strong_numbers_in_countries": ["China", "Brazil", "Canada"],
+    "average_age": 34,
+    "family_status": "many with children",
+    "income_level": "high",
+    "residence_type": ["urban areas", "large cities"],
+    "occupational_roles": ["management"],
+    "vehicle_preferences": {
+      "preferred_vehicle_type": "new luxury compact SUVs"
+    }
+  },
+  "psychology": {
+    "passion_about_cars": true,
+    "interests": ["luxury", "exclusive experiences"],
+    "brand_preferences": ["high-end brands", "tech", "luxury EVs"],
+    "cost_awareness": true,
+    "expectations": ["quality", "performance"],
+    "digital_engagement": true,
+    "sustainability_consciousness": true,
+    "value_for_price": true,
+    "service_value": "quality service and parts",
+    "brand_loyalty_criteria": "meeting high standards"
+  },
+  "customer_experience": {
+    "digital_channel_utilization": ["need identification", "service communication", "documentation"]
+  },
+  "marketing_implications": {
+    "positioning_strategy": "Premium",
+    "target_demographic": "digitally savvy audience",
+    "service_offering": {
+      "digital_and_personalized_services": true,
+      "value_proposition": ["luxury", "sustainability"]
+    }
+  }
+}

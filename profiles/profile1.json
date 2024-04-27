@@ -1,43 +1,69 @@
 {
+  "customer_id": "789012",
+  "name": "Franz",
+  "email": "franz@example.com",
+  "phone": "+1234567890",
+  "address": {
+    "street": "456 Oak St",
+    "city": "Ruralville",
+    "state": "TX",
+    "zipcode": "67890",
+    "country": "USA"
+  },
   "demographics": {
-    "percentage_of_customer_base": "4%",
-    "strong_numbers_in_countries": ["USA", "UK", "Germany"],
-    "average_age": 39,
-    "portion_over_55": "significant",
-    "predominantly_male_demographic": true,
-    "income_level": "high",
-    "residence_type": ["rural areas", "smaller cities", "suburbs"],
-    "occupational_roles": ["leadership", "retired"],
-    "vehicle_ownership": {
-      "multiple_vehicles": true,
-      "preferred_vehicle_type": "large luxury cars",
-      "ownership_duration": "long-term"
-    }
+    "age": 55,
+    "gender": "Male",
+    "income_level": "$150,000 - $200,000",
+    "education_level": "Advanced Degree"
   },
-  "psychology": {
-    "price_sensitivity": "low",
-    "spending_preferences": ["luxury", "convenience", "quality"],
-    "values": ["brand prestige", "maintenance", "resale value"],
-    "loyalty_behavior": {
-      "brand_preference": "established brands",
-      "interest_in_new_brands": false
+  "customer_experience_preferences": {
+    "preferred_interaction": "Hybrid",
+    "preferred_communication_channel": "Phone",
+    "preferred_purchase_process": "Traditional",
+    "preferred_support_channel": "Phone"
+  },
+  "purchased_vehicles": [
+    {
+      "model": "Mercedes-Benz S-Class",
+      "year": 2023,
+      "color": "Black",
+      "vin": "WDDUG8GB1JA393856"
     },
-    "interests": ["tennis", "theater", "cruising"]
-  },
-  "customer_experience": {
-    "digital_engagement": "initial stages",
-    "preferred_transaction_type": "traditional",
-    "information_seeking_behavior": "minimal",
-    "service_appointment_preference": ["phone", "direct click"],
-    "service_options": {
-      "pick-up_service": true,
-      "loaner_vehicle": false
+    {
+      "model": "BMW 7 Series",
+      "year": 2022,
+      "color": "White",
+      "vin": "WBA7T4C0NLG621093"
     }
+  ],
+  "service_history": [
+    {
+      "date": "2024-03-10",
+      "service_type": "Annual Maintenance",
+      "mileage": "20000"
+    },
+    {
+      "date": "2023-09-15",
+      "service_type": "Brake Inspection",
+      "mileage": "15000"
+    }
+  ],
+  "preferred_contact_method": "phone",
+  "last_interaction": "2024-04-20T10:00:00Z",
+  "notes": "Prefers personalized service and interaction.",
+  "psychology": {
+    "personality_traits": ["Discerning", "Traditionalist"],
+    "motivations": ["Luxury", "Quality"],
+    "emotional_triggers": ["Brand Prestige", "Resale Value"],
+    "communication_style": "Direct and formal"
   },
-  "marketing_implications": {
-    "positioning_strategy": "High-end luxury",
-    "target_demographic": "classic luxury-seeking",
-    "emphasized_features": ["personal service", "interaction"],
-    "luxury_experiences": true
+  "marketing_recommendations": {
+    "targeted_offers": ["Exclusive concierge service", "Customized vehicle upgrades"],
+    "communication_strategy": "Offer personalized, high-touch service experiences. Highlight brand heritage and quality in communications. Provide exclusive access to events and experiences.",
+    "preferred_marketing_channels": ["Direct mail for personalized offers", "Exclusive events and newsletters"],
+    "loyalty_program": {
+      "enrollment": "Exclusive invitation-only program",
+      "benefits": ["Dedicated account manager", "VIP access to events"]
+    }
   }
 }

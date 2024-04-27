@@ -1,0 +1,58 @@
+{
+  "demographics": {
+    "percentage_of_customer_base": "33%",
+    "strong_numbers_in_countries": [
+      "Sweden",
+      "Switzerland",
+      "Germany"
+    ],
+    "average_age": 47,
+    "predominantly_male_demographic": true,
+    "income_level": "lower",
+    "family_status": "fewer children, possibly grown",
+    "residence_type": [
+      "rural areas",
+      "smaller towns"
+    ],
+    "occupational_roles": [
+      "retirees"
+    ],
+    "vehicle_preferences": {
+      "preferred_vehicle_type": "used cars",
+      "preferred_segment": "mid-range"
+    }
+  },
+  "psychology": {
+    "brand_loyalty": "low",
+    "service_preference": "local independent service",
+    "values": [
+      "personal relationships",
+      "quality",
+      "service"
+    ],
+    "price_sensitivity": "high",
+    "digital_savviness": "selective",
+    "interests": [
+      "car maintenance",
+      "resale value"
+    ],
+    "car_perception": "primarily as transportation"
+  },
+  "customer_experience": {
+    "digital_engagement": true,
+    "information_seeking_behavior": "low",
+    "communication_preference": "telephone"
+  },
+  "marketing_implications": {
+    "positioning_strategy": "Value",
+    "customer_engagement": {
+      "loyalty_opportunity": "can be loyal if engaged",
+      "challenges": "difficult to attract due to long-standing personal relationships"
+    },
+    "focus_areas": [
+      "quality",
+      "service",
+      "fair pricing"
+    ]
+  }
+}
