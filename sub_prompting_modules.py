@@ -82,10 +82,8 @@ def get_meta_data(context: str):
 
 
 def generate_response(user_data, context: list[dict], car_data: str, customer_segment: str):
-    if car_data != None:
-        full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
-    else:
-        full_profile = "[Current profile]:" + str(user_data)
+        
+    full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
 
     print(user_data)
     print(car_data)
@@ -110,7 +108,7 @@ def generate_response(user_data, context: list[dict], car_data: str, customer_se
     context_new = context.copy()
     context_new.extend([{"role": "system", "content": system_prompt}])
 
-    prompt = f"""Use the following use the following data to craft a response:
+    prompt = f"""Use the following data to craft a response:
 
     User data: {get_meta_data(str(full_profile))}
 
