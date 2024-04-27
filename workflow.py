@@ -24,13 +24,9 @@ def give_informed_resp(user_data: str, context_memory: list[dict], first: bool =
         return craft_first_message(context_mem=request_context, user_data=user_data)
 
     # Data retriever
-    retrieved_evidence = retriever.retrieve(context_memory[-1].content, chat_history=context_memory[:-1])
+    retrieved_evidence = retriever.retrieve(context_memory[-1]["content"], chat_history=context_memory[:-1])
 
     # Answer generation
-<<<<<<< HEAD
-    generate_response(user_data, context_memory, retrieved_evidence)    
-=======
+    return generate_response(user_data, context_memory, retrieved_evidence)    
 
-
->>>>>>> 7a5d567cf9d669002d26d19e1fb83f9dd7e28b66
     # CTA enhancer

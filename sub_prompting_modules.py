@@ -38,15 +38,15 @@ def identify_customer_segment(user_data: str, context_mem: list[dict]) -> str:
 
 
 def mod_context_segments(current_segment: Literal['franz', 'peter', 'sally', 'viola'], current_context: list[dict]) -> list[dict]:
-    match current_segment:
-        case 'franz':
-            current_context.append({'role': 'system', 'content': ''})
-        case 'peter':
-            current_context.append({'role': 'system', 'content': ''})
-        case 'sally':
-            current_context.append({'role': 'system', 'content': ''})
-        case 'viola':
-            current_context.append({'role': 'system', 'content': ''})
+    # match current_segment:
+        # case 'franz':
+        #     current_context.append({'role': 'system', 'content': ''})
+        # case 'peter':
+        #     current_context.append({'role': 'system', 'content': ''})
+        # case 'sally':
+        #     current_context.append({'role': 'system', 'content': ''})
+        # case 'viola':
+        #     current_context.append({'role': 'system', 'content': ''})
 
     return current_context
 
@@ -74,9 +74,9 @@ def get_meta_data(context: list[dict]):
 
 def generate_response(user_data: str, context: list[dict], car_data: str):
     if car_data != None:
-        full_profile = "[Current profile:]" + user_data + "[Car data:]" + car_data
+        full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
     else:
-        full_profile = "[Current profile]:" + user_data
+        full_profile = "[Current profile]:" + str(user_data)
 
-    system_prompt = "Use this data for your next response: " + get_meta_data([{"role": "user", "content": full_profile}])})
-    return send_message(system_prompt, "system", context)
+    system_prompt = "Use this data for your next response: " + get_meta_data([{"role": "user", "content": full_profile}])
+    return stream_message(system_prompt, "system", context)
