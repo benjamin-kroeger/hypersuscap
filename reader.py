@@ -12,7 +12,7 @@ def get_profile(profile_num:int):
     with open(path, "r") as file:
         data = json.load(file)
 
-    return data
+    return data['demographics']
 
 
 def get_meta_data(context:list[dict]):
