@@ -20,11 +20,13 @@ def send_message(message: str, role: Literal['system', 'user', 'assistant'], con
 
 
 def stream_message(message: str, role: Literal['system', 'user',], context: list[dict],
-                   model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo'):
+                   model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo', temperature=0.5, max_tokens=50):
     context.append({"role": role, "content": message})
     stream = client.chat.completions.create(
         model=model,
         messages=context,
+        temperature=temperature,
+        max_tokens=max_tokens,
         stream=True
     )
 
