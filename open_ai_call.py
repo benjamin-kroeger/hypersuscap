@@ -16,6 +16,7 @@ def send_message(message: str, role: Literal['system', 'user',], context: list[d
     return completion.choices[0].message
 
 
+
 if __name__ == "__main__":
     messages = [
         {"role": "system", "content": "You are a hellpfull, sales assistant"}
