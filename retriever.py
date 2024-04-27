@@ -138,9 +138,12 @@ class Retriever:
        
         Abstract question: What is the most prestigous car?
         Adjusted question: What is the most expensive car?
+        Adjusted question: What is the car with the highest top speed?
 
         Abstract question: I often buy a lot in the supermarket, does it fit in the car?
         Adjusted question: What is the luggage space of the car?
+        Adjusted question: What is the boot capacity of the car?
+        Adjusted question: How much space is at the front seat of the car?
         """
 
         final_query_prompt = f"""
@@ -167,10 +170,55 @@ class Retriever:
         # 1. Contextualize the user query given the chat history
         cqu = self.query_rewrite(test_query, chat_history=chat_history) 
 
-        # 2. Query Check
-        self.query_check(cqu)
+        #TODO: Generate multiple queries and select the best one
 
-        # test_query = cqu
+        test_query = cqu
+
+        # 2. Get Database answer to the query
+        list_of_sql_queries = []
+        for i in range(10):
+            list_of_sql_queries.append(self.retrieve_query_sql(test_query))
+        
+        # 3. Select the best answer from the list of answers
+        answer = self.select_best_answer(test_query, list_of_sql_queries)
+
+        return answer
+
+    def select_best_answer(self, test_query, list_of_sql_queries=[]):
+
+        answers = []
+
+        for pair in list_of_sql_queries:
+
+            answer_prompt =f"""Given the following user question, corresponding SQL query, and SQL result, answer the user question.
+    # Question: {test_query}
+    # SQL Query: {pair["query"]}
+    # SQL Result: {pair["result"]}
+    # Answer: """
+
+            messages = [{"role": "system", "content": "You are an assistant which answers a given user question based on the SQL query and the SQL result."}]
+            answers.append(send_message(answer_prompt, 'user', context=messages, model="gpt-3.5-turbo"))
+        
+        final_answer_prompt=f""""Given the following user question, which answer is the most appropriate? 
+
+        User question: {test_query}
+
+        Please select the most appropriate answer from the following options:
+        
+        """
+
+        for answer in answers:
+            final_answer_prompt+=f"{answer}\n"
+        
+        final_answer_system_prompt = "You are an assistant which selects the most appropriate answer from a list of answers."
+
+        messages = [{"role": "system", "content": final_answer_system_prompt}]
+        answer = send_message(final_answer_prompt, 'user', context=messages, model="gpt-3.5-turbo")
+
+        print("Final Answer: ", answer)
+        return answer
+    
+    def retrieve_query_sql(self, test_query):
 
         prompt = FewShotPromptTemplate(
             example_selector=self.example_selector,
@@ -193,29 +241,15 @@ class Retriever:
         db_result = self.db.run(result)
         print("DB Run: ", db_result)
 
-        answer_prompt = PromptTemplate.from_template(
-        f"""Given the following user question, corresponding SQL query, and SQL result, answer the user question.
-
-# Question: {test_query}
-# SQL Query: {result}
-# SQL Result: {db_result}
-# Answer: """
-)
-
-        messages = [{"role": "system", "content": "You are an assistant which answers a given user question based on the SQL query and the SQL result."}]
-        answer = send_message(answer_prompt, 'user', context=messages, model="gpt-3.5-turbo")
-
-        print("Final Answer: ", answer)
-
-        return answer
+        return {"query": result, "result": db_result}
 
 
-# example_history = [
-#     {"role": "assistant", "content": "How can I help you?"},
-#     {"role": "user", "content": "I'm interested in a G-wagon?"},
-#     {"role": "assistant", "content": "What would you like to know about the G-wagon?"},
-# ]
+example_history = [
+    {"role": "assistant", "content": "How can I help you?"},
+    {"role": "user", "content": "I'm interested in a G-wagon?"},
+    {"role": "assistant", "content": "What would you like to know about the G-wagon?"},
+]
 
-# example_test_query = "Does a buggy fit into the car?"
+example_test_query = "Does a buggy fit into the car?"
 
-# Retriever("sqlite:///electric_configurations.db").retrieve(example_test_query, chat_history=example_history)
+Retriever("sqlite:///electric_configurations.db").retrieve(example_test_query, chat_history=example_history)
