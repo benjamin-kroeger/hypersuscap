@@ -1,0 +1,51 @@
+{
+    "customer_id": "123456",
+    "name": "Viola",
+    "email": "viola@example.com",
+    "phone": "+9876543210",
+    "address": {
+      "street": "456 Oak St",
+      "city": "Stockholm",
+      "state": "",
+      "zipcode": "12345",
+      "country": "Sweden"
+    },
+    "demographics": {
+      "age": 47,
+      "gender": "Female",
+      "income_level": "Lower",
+      "family_status": "Fewer Children, Possibly Grown",
+      "residence_type": ["Rural Areas", "Smaller Towns"],
+      "occupational_roles": ["Retirees"],
+      "vehicle_preferences": {
+        "preferred_vehicle_type": "Used Cars",
+        "preferred_segment": "Mid-Range"
+      }
+    },
+    "customer_experience_preferences": {
+      "preferred_interaction": "Telephone",
+      "preferred_communication_channel": "Telephone",
+      "preferred_purchase_process": "Traditional",
+      "preferred_support_channel": "Telephone"
+    },
+    "psychology": {
+      "brand_loyalty": "Low",
+      "service_preference": "Local Independent Service",
+      "values": ["Personal Relationships", "Quality", "Service"],
+      "price_sensitivity": "High",
+      "digital_savviness": "Selective",
+      "interests": ["Car Maintenance", "Resale Value"],
+      "car_perception": "Primarily as Transportation"
+    },
+    "marketing_recommendations": {
+      "positioning_strategy": "Value",
+      "targeted_offers": ["Discounted Service Packages", "Certified Pre-Owned Vehicles"],
+      "communication_strategy": "Emphasize personalized service and fair pricing. Highlight quality and reliability in communications. Offer loyalty incentives for repeat business.",
+      "preferred_marketing_channels": ["Local Newspaper Ads", "Community Events"],
+      "loyalty_program": {
+        "enrollment": "Opt-In Loyalty Program",
+        "benefits": ["Discounted Maintenance Services", "Referral Rewards"]
+      }
+    }
+  }
+  
