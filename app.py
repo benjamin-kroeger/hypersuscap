@@ -3,7 +3,12 @@ from constants import user_data
 import streamlit as st
 from openai import OpenAI
 from workflow import give_informed_resp
+import logging.config
 
+logging.config.fileConfig(
+    'logging.config',
+    disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 st.title("sell**A**r**I**")
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
@@ -55,6 +60,6 @@ if prompt := st.chat_input("What is up?"):
         #     stream=True,
         # )
         # response = st.write_stream(stream)
-        out = give_informed_resp(user_data=user_data,context_memory=st.session_state.messages)
+        out = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages)
         response = st.write(out)
     st.session_state.messages.append({"role": "assistant", "content": response})
