@@ -1,0 +1,76 @@
+{
+  "customer_id": "789012",
+  "name": "Sally",
+  "email": "Sally@example.com",
+  "phone": "+1234567890",
+  "address": {
+    "street": "789 Elm St",
+    "city": "Shanghai",
+    "state": "SH",
+    "zipcode": "200000",
+    "country": "China"
+  },
+  "demographics": {
+    "age": 32,
+    "gender": "Female",
+    "income_level": "High",
+    "education_level": "Bachelor's Degree",
+    "family_status": "Childless Couples",
+    "residence_type": ["Urban Areas", "Megacities"],
+    "occupational_roles": ["Management"],
+    "vehicle_preferences": {
+      "preferred_vehicle_type": "New Entry-Level Luxury Vehicles",
+      "typical_choice": "Modern Compact Executive Car"
+    }
+  },
+  "customer_experience_preferences": {
+    "preferred_interaction": "Hybrid",
+    "preferred_communication_channel": "Phone",
+    "preferred_purchase_process": "Traditional",
+    "preferred_support_channel": "Phone"
+  },
+  "purchased_vehicles": [
+    {
+      "model": "Audi A4",
+      "year": 2024,
+      "color": "Silver",
+      "vin": "WAUAAAF44BN090324"
+    },
+    {
+      "model": "Lexus IS",
+      "year": 2023,
+      "color": "Blue",
+      "vin": "JTHBA1D23G5007923"
+    }
+  ],
+  "service_history": [
+    {
+      "date": "2024-02-10",
+      "service_type": "Annual Maintenance",
+      "mileage": "10000"
+    },
+    {
+      "date": "2023-08-15",
+      "service_type": "Oil Change",
+      "mileage": "5000"
+    }
+  ],
+  "preferred_contact_method": "phone",
+  "last_interaction": "2024-04-20T10:00:00Z",
+  "notes": "Prefers personalized service and interaction.",
+  "psychology": {
+    "personality_traits": ["Luxury and Convenience Preference", "Impulsive", "Low Savings Inclination", "Societal Conformity", "Willingness to Take Risks", "High Brand Loyalty"],
+    "motivations": ["Social Validation", "Sustainability"],
+    "emotional_triggers": ["Brand Prestige", "Resale Value"],
+    "communication_style": "Direct and Formal"
+  },
+  "marketing_recommendations": {
+    "targeted_offers": ["Exclusive Concierge Service", "Customized Vehicle Upgrades"],
+    "communication_strategy": "Offer personalized, high-touch service experiences. Highlight brand heritage and quality in communications. Provide exclusive access to events and experiences.",
+    "preferred_marketing_channels": ["Direct Mail for Personalized Offers", "Exclusive Events and Newsletters"],
+    "loyalty_program": {
+      "enrollment": "Exclusive Invitation-Only Program",
+      "benefits": ["Dedicated Account Manager", "VIP Access to Events"]
+    }
+  }
+}
