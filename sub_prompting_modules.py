@@ -81,7 +81,7 @@ def get_meta_data(context: str):
     return send_message(prompt, "user", messages, max_tokens=500)
 
 
-def generate_response(user_data, context: list[dict], car_data: str):
+def generate_response(user_data, context: list[dict], car_data: str, customer_segment: str):
     if car_data != None:
         full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
     else:
@@ -89,6 +89,18 @@ def generate_response(user_data, context: list[dict], car_data: str):
 
     print(user_data)
     print(car_data)
+
+    if customer_segment == "franz":
+        pass
+    elif customer_segment == "peter":
+        pass
+    elif customer_segment == "sally":
+        pass
+    elif customer_segment == "viola":
+        pass
+    else:
+        pass 
+
 
     system_prompt = "You are an asisstant that helps high end customers in their decission for an Mercedes electric vehicle. You have access to the users profile, Mercedes car database and the chat history. You should use this data to craft a response."
 

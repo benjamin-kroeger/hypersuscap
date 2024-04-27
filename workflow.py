@@ -27,6 +27,6 @@ def give_informed_resp(user_data: str, context_memory: list[dict], first: bool =
     retrieved_evidence = retriever.retrieve(context_memory[-1]["content"], chat_history=context_memory[:-1])
 
     # Answer generation
-    return generate_response(user_data, context_memory, retrieved_evidence)    
+    return generate_response(user_data, context_memory, retrieved_evidence, customer_segment)    
 
     # CTA enhancer
