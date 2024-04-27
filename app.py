@@ -45,6 +45,13 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# check if everything is in order to make the introductory message
+if "messages" in st.session_state and "user_data" in st.session_state and len(st.session_state.messages) == 0:
+    with st.chat_message("assistant"):
+        stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages,first=True)
+        response = st.write_stream(stream)
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
 if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
