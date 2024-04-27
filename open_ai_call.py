@@ -15,6 +15,16 @@ def send_message(message: str, role: Literal['system', 'user',], context: list[d
 
     return completion.choices[0].message
 
+def stream_message(message: sttr, role: Literal['system', 'user',], context: list[dict],
+                   model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo'):
+
+    stream = client.chat.completions.create(
+        model=model,
+        messages=context,
+        stream=True
+    )
+
+    return stream
 
 
 if __name__ == "__main__":
