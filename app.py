@@ -7,12 +7,12 @@ st.title("sell**A**r**I**")
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-
 cols = st.columns(4)
 
 with cols[0]:
     if st.button("Franz"):
         st.session_state.input = "Franz"
+        st.session_state.user_data =
         st.session_state.messages = []
 with cols[1]:
     if st.button("Sally"):
@@ -26,8 +26,6 @@ with cols[3]:
     if st.button("Viola"):
         st.session_state.input = "Viola"
         st.session_state.messages = []
-
-
 
 if "input" in st.session_state:
     st.write("Using " + st.session_state.input + " as test input")

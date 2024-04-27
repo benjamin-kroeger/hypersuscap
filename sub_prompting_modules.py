@@ -59,8 +59,6 @@ def craft_first_message(user_data: str,context_mem) -> str:
               f"{user_data}\n")
 
     resp = send_message(message=prompt, role='user', context=context).content
-    logger.info(f"Identified customer segment {resp}")
-
     return resp
 
 

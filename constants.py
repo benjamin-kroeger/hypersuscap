@@ -19,3 +19,12 @@ def _read_segments_specs(path_to_segments_specs: str):
 
 
 segments = _read_segments_specs('segments')
+
+def _get_user_data(path_to_user_data: str):
+    assert os.path.isdir(path_to_user_data), "Path does not exist"
+
+    user_data = {}
+
+    for user_data in glob(os.path.join(path_to_user_data, "*")):
+        with open(user_data,'r') as f:
+            single_user_data = json.load(f)
