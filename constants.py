@@ -23,8 +23,14 @@ segments = _read_segments_specs('segments')
 def _get_user_data(path_to_user_data: str):
     assert os.path.isdir(path_to_user_data), "Path does not exist"
 
-    user_data = {}
+    user_data = dict()
 
-    for user_data in glob(os.path.join(path_to_user_data, "*")):
-        with open(user_data,'r') as f:
+    for single_user_data_path in glob(os.path.join(path_to_user_data, "*")):
+        with open(single_user_data_path,'r') as f:
             single_user_data = json.load(f)
+            user_data[single_user_data['name'].lower()] = single_user_data
+
+    return user_data
+
+
+user_data = _get_user_data('profiles')
