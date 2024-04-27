@@ -13,7 +13,7 @@ st.title("sell**A**r**I**")
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-cols = st.columns(4)
+cols = st.columns(5)
 
 # buttons for example selection
 with cols[0]:
@@ -34,6 +34,12 @@ with cols[2]:
 with cols[3]:
     if st.button("Viola"):
         st.session_state.input = "Viola"
+        st.session_state.user_data = user_data['viola']
+        st.session_state.messages = []
+with cols[4]:
+    if st.button("No Profile"):
+        st.session_state.input = "No Profile"
+        st.session_state.user_data = {}
         st.session_state.messages = []
 
 # Tell the user which example input he selected

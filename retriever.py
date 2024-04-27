@@ -45,7 +45,7 @@ The following is a list of all column names, some contain a description:
         power_hp 
         power_kw 
         continuous_power_kw 
-        emission_standard - The EU emission standard of the car.
+        emission_standard - The EU emission standard of the car indicates it's CO2 emissions.
         nominal_torque 
         type_of_propulsion 
         battery_type 
