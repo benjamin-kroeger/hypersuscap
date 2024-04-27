@@ -1,6 +1,6 @@
 import logging.config
 
-from sub_prompting_modules import craft_first_message, identify_customer_segment, mod_context_segments
+from sub_prompting_modules import craft_first_message, identify_customer_segment, mod_context_segments, generate_response
 
 from retriever import Retriever
 
@@ -12,7 +12,6 @@ logging.config.fileConfig(
 logger = logging.getLogger(__name__)
 
 retriever = Retriever("sqlite:///electric_configurations.db")
-
 def give_informed_resp(user_data: str, context_memory: list[dict], first: bool = False) -> str:
     # get customer segment
     customer_segment = identify_customer_segment(user_data=user_data, context_mem=context_memory)
@@ -26,5 +25,5 @@ def give_informed_resp(user_data: str, context_memory: list[dict], first: bool =
     retrieved_evidence = retriever.retrieve(context_memory[-1].content, chat_history=context_memory[:-1])
 
     # Answer generation
-
+    
     # CTA enhancer
