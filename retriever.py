@@ -244,12 +244,12 @@ class Retriever:
         return {"query": result, "result": db_result}
 
 
-example_history = [
-    {"role": "assistant", "content": "How can I help you?"},
-    {"role": "user", "content": "I'm interested in a G-wagon?"},
-    {"role": "assistant", "content": "What would you like to know about the G-wagon?"},
-]
+# example_history = [
+#     {"role": "assistant", "content": "How can I help you?"},
+#     {"role": "user", "content": "I'm interested in a G-wagon?"},
+#     {"role": "assistant", "content": "What would you like to know about the G-wagon?"},
+# ]
 
-example_test_query = "Does a buggy fit into the car?"
+# example_test_query = "Does a buggy fit into the car?"
 
-Retriever("sqlite:///electric_configurations.db").retrieve(example_test_query, chat_history=example_history)
+# Retriever("sqlite:///electric_configurations.db").retrieve(example_test_query, chat_history=example_history)
