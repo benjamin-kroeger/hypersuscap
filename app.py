@@ -2,7 +2,7 @@ import os
 from constants import user_data
 import streamlit as st
 from openai import OpenAI
-from workflow import give_informed_resp
+from workflow import give_informed_resp, check_for_cta  
 import logging.config
 
 logging.config.fileConfig(
@@ -62,6 +62,7 @@ if "messages" in st.session_state and "user_data" in st.session_state and len(st
         stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages,first=True)
         response = st.write_stream(stream)
     # append the assistant message to the logs
+
     st.session_state.messages.append({"role": "assistant", "content": response})
 
 # gets triggered if the user submits a text
@@ -77,3 +78,10 @@ if prompt := st.chat_input("What is up?"):
         response = st.write_stream(stream)
     # add response to logs
     st.session_state.messages.append({"role": "assistant", "content": response})
+    # check if a CTA should be added
+    cta = check_for_cta(st.session_state.messages)
+    print("CTA: ", cta)
+    if cta is not None:
+        with st.chat_message("assistant"):
+            response = st.write(cta)
+        st.session_state.messages.append({"role": "assistant", "content": cta})

@@ -120,3 +120,73 @@ def generate_response(user_data, context: list[dict], car_data: str, customer_se
 
     print(system_prompt)    
     return stream_message(prompt, "user", context_new, temperature=0.25, max_tokens=500)
+
+def enhance_cta(context):
+    print("Enhancing CTA")
+
+    context_new = context.copy()
+
+    chosen_cta = enhance_cta_support(context_new)
+
+    
+    system_prompt = "You are an assistant who determines, if a CTA should be added to the response. If you want to trigger a CTA, state 'Yes', otherwise 'No'" 
+
+    context_new.insert(0, {"role": "system", "content": system_prompt})
+
+    prompt = f"""Use the last response of the assistant and the data of the CTA to determine if the CTA should be added to the response. Only trigger a CTA, when it seems realy appropriate.
+
+    Last Assistant Reponse: {str(context_new[-1]["content"])}
+
+    CTA options: {str(chosen_cta)}
+
+    Add CTA (Yes/No): """
+
+    messages = [{"role": "system", "content": system_prompt}]
+
+    new_response = send_message(prompt, "user", messages, temperature=0.5, max_tokens=500)
+
+    print("New Response: ", new_response)
+
+    if new_response.lower().strip() == "yes":
+        return next(iter(chosen_cta.values()))
+    else:
+        print("Last else statement in enhance_cta()")
+        return  None
+
+def enhance_cta_support(context):
+    keywords_json = {
+        "ArrangeTestDrive": ["test drive", "arrange test drive"],
+        "ConfigureCar_EQE_Limousine": ["configure", "EQE Limousine"],
+        "ConfigureCar_EQS_Limousine": ["configure", "EQS Limousine"],
+        "ConfigureCar_EQA": ["configure", "EQA"],
+        "ConfigureCar_EQB": ["configure", "EQB"],
+        "ConfigureCar_EQE_SUV": ["configure", "EQE SUV"],
+        "ConfigureCar_EQS_SUV": ["configure", "EQS SUV"],
+        "ConfigureCar_Mercedes-Maybach_EQS_SUV": ["configure", "Mercedes-Maybach EQS SUV"],
+        "ConfigureCar_G-Klasse": ["configure", "G-Klasse"],
+        "ConfigureCar_EQT": ["configure", "EQT"],
+        "ConfigureCar_EQV": ["configure", "EQV"],
+        "GeneralInforamtion": ["electric cars", "general information"]
+    }
+
+    # Load cta_enhancers.json
+    with open("cta_enhancers.json", "r") as file:
+        cta_enhancers_json = json.load(file)
+
+    cta_counts = {}
+
+    for cta in context:
+        if cta["role"] == "user":
+            cta_content = cta["content"]
+            for cta_name, cta_keywords in keywords_json.items():
+                count = sum(1 for word in cta_keywords if word.lower() in cta_content.lower())
+                if cta_name not in cta_counts:
+                    cta_counts[cta_name] = count
+                else:
+                    cta_counts[cta_name] += count
+
+    chosen_cta_name = max(cta_counts, key=cta_counts.get)
+    chosen_cta_link = cta_enhancers_json.get(chosen_cta_name)
+
+    print("Chosen CTA: ", chosen_cta_name, chosen_cta_link)
+    return {chosen_cta_name: chosen_cta_link}

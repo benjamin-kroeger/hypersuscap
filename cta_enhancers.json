@@ -1,0 +1,14 @@
+{
+    "ArrangeTestDrive": "https://www.mercedes-benz.de/passengercars/test-drive.html?group=all&subgroup=see-all&view=BODYTYPE&filters=ELECTRIC",
+    "ConfigureCar_EQE_Limousine": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/EQE-KLASSE/LIMOUSINE_LANG",
+    "ConfigureCar_EQS_Limousine": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/EQS-KLASSE/LIMOUSINE_LANG",
+    "ConfigureCar_EQA": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/EQA-KLASSE/OFFROADER",
+    "ConfigureCar_EQB": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/EQB-KLASSE/OFFROADER",
+    "ConfigureCar_EQE_SUV": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/EQE-KLASSE/OFFROADER",
+    "ConfigureCar_EQS_SUV": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/bm/2966231,2966241,2966341,2966441",
+    "ConfigureCar_Mercedes-Maybach_EQS_SUV": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/bm/2969551",
+    "ConfigureCar_G-Klasse": "https://www.mercedes-benz.de/passengercars/mercedes-benz-cars/car-configurator.html/motorization/CCci/DE/de/bm/4656001",
+    "ConfigureCar_EQT": "https://www.mercedes-benz.de/vans/buy/van-online-configurator.html#/de_de?models=EQT&bodyTypes=COMBI&fuelTypes=E",
+    "ConfigureCar_EQV": "https://www.mercedes-benz.de/vans/buy/van-online-configurator.html#/de_de?models=EQV&bodyTypes=COMBI&fuelTypes=E",
+    "GeneralInforamtion": "https://www.mercedes-benz.de/passengercars/models/electric.html?subgroup=see-all&filters=ELECTRIC&group=all&view=BODYTYPE"
+}

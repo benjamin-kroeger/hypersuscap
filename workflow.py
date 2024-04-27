@@ -1,6 +1,6 @@
 import logging.config
 
-from sub_prompting_modules import craft_first_message, identify_customer_segment, mod_context_segments, generate_response
+from sub_prompting_modules import craft_first_message, identify_customer_segment, mod_context_segments, generate_response, enhance_cta
 
 from retriever import Retriever
 
@@ -27,6 +27,11 @@ def give_informed_resp(user_data: str, context_memory: list[dict], first: bool =
     retrieved_evidence = retriever.retrieve(context_memory[-1]["content"], chat_history=context_memory[:-1])
 
     # Answer generation
-    return generate_response(user_data, context_memory, retrieved_evidence, customer_segment)    
+    response = generate_response(user_data, context_memory, retrieved_evidence, customer_segment)    
 
-    # CTA enhancer
+    return response
+
+def check_for_cta(messages: list[dict]) -> None:
+    print("Checking for CTA")
+    if len(messages) > 1:
+        return enhance_cta(messages)
