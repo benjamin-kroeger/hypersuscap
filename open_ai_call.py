@@ -4,13 +4,15 @@ from typing import Literal
 client = OpenAI()
 
 
+
 def send_message(message: str, role: Literal['system', 'user', 'assistant'], context: list[dict],
-                 model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo'):
+                 model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo', temperature=0.5):
     context.append({"role": role, "content": message})
 
     completion = client.chat.completions.create(
         model=model,
-        messages=context
+        messages=context,
+        temperature=temperature
     )
 
     return completion.choices[0].message.content
@@ -33,4 +35,4 @@ if __name__ == "__main__":
         {"role": "system", "content": "You are a hellpfull, sales assistant"}
     ]
     response = send_message("Hello", "system", messages)
-    print(response.content)
+    print(response)
