@@ -28,7 +28,7 @@ def identify_customer_segment(user_data: str, context_mem: list[dict]) -> str:
               "Segments:\n"
               f"{segments_str}")
 
-    resp = send_message(message=prompt, role='user', context=context).content
+    resp = send_message(message=prompt, role='user', context=context)
     logger.info(f"Identified customer segment {resp}")
 
     return resp
@@ -64,7 +64,7 @@ def craft_first_message(user_data: str, context_mem) -> str:
 
 def get_meta_data(context: list[dict]):
     prompt = "retrieve all valuable data from this current context, write a short description of this person"
-    return send_message(prompt, "system", context).content
+    return send_message(prompt, "system", context)
 
 
 def generate_response(user_data: dict, context: list[dict], car_data: dict = None):
@@ -74,4 +74,4 @@ def generate_response(user_data: dict, context: list[dict], car_data: dict = Non
         full_profile = "[Current profile]:" + str(user_data)
 
     context.append({"role": "system", "content": "If preferable use this data about the current context: " + get_meta_data(context)})
-    return send_message(full_profile, "assistant", context).content
+    return send_message(full_profile, "assistant", context)

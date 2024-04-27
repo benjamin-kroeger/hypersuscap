@@ -10,13 +10,20 @@ logger = logging.getLogger(__name__)
 
 
 def give_informed_resp(user_data: str, context_memory: list[dict]) -> str:
-    # Get customer segment
-    inital_context_length = len(context_memory)
-    logger.info('Inital_context_length: {}'.format(inital_context_length))
+
     # get customer segment
     customer_segment = identify_customer_segment(user_data=user_data,context_mem=context_memory)
-    #
+    # add answering instructions based on the segment
     request_context = mod_context_segments(current_segment=customer_segment, current_context=context_memory)
 
+    # TODO : remove from here and have it print from the get go
     if inital_context_length == 1:
         return craft_first_message(context_mem=request_context, user_data=user_data)
+
+    # Data retriever
+
+    # Answer generation
+
+    # CTA enhancer
+
+
