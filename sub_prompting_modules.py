@@ -82,32 +82,33 @@ def get_meta_data(context: str):
 
 
 def generate_response(user_data, context: list[dict], car_data: str, customer_segment: str):
-    if car_data != None:
-        full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
-    else:
-        full_profile = "[Current profile]:" + str(user_data)
+        
+    full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
 
     print(user_data)
     print(car_data)
 
+    system_prompt = "You are an asisstant that helps high end customers in their decission for an Mercedes electric vehicle." 
+
     if customer_segment == "franz":
+        system_prompt += "Given the demographic composition and preferences of our customer base, please ensure that responses are crafted with fitting language and speech patterns. This demographic, comprising 4% of our international clientele, demonstrates a penchant for traditional transactions and values personal service. They are typically affluent males, aged 39 and above, residing in rural areas, smaller cities, or suburbs, often in leadership roles or enjoying retirement. This segment boasts high earners who prioritize luxury, convenience, and quality over price sensitivity. Their loyalty to established brands and service providers is unwavering, as they prioritize brand prestige, maintenance, and resale value. Additionally, they have a keen interest in classic luxury experiences and traditional pastimes such as tennis, theater, and cruising. Please ensure that marketing initiatives align with our positioning strategy of high-end luxury, targeting this discerning demographic with a focus on personalized service and luxury experiences."
         pass
     elif customer_segment == "peter":
+        system_prompt += "Given the demographic composition and psychological inclinations of our customer base, please ensure that responses are crafted with fitting language and speech patterns. This segment, comprising 8% of our global clientele, exhibits a strong presence in key markets such as China, Brazil, and Canada, with an average age of 34. They are predominantly urban, often holding management roles and boasting high incomes, symbolizing affluent professionals with growth potential. Their preference for new, young luxury compact SUVs underscores their passion for cars and desire for exclusive experiences. While cost-aware, they prioritize quality and performance, especially from high-end brands in various sectors, including tech and luxury EVs. Marketing initiatives should focus on premium positioning, targeting this digitally savvy audience with a mix of digital and personalized services. Please ensure responses resonate with their values of luxury, sustainability, and quality service, emphasizing a clear value proposition tailored to their preferences."
         pass
     elif customer_segment == "sally":
+        system_prompt += "Given the demographic composition and psychological tendencies of our customer base, please ensure that responses are crafted with fitting language and speech patterns. This segment, representing 14% of our global clientele, exhibits a strong presence in key markets such as China, France, and Switzerland. With an average age of 32, they are predominantly urban, with many in management roles and boasting high disposable incomes. This demographic, though slightly skewed towards males, features significant representation from childless couples. Their preference for new entry-level luxury vehicles, particularly modern compact executive cars, reflects their inclination towards luxury and convenience. They are impulsive buyers with a propensity for taking financial risks, driven by social validation and influenced by societal trends. While not intrinsically motivated by sustainability, they are willing to pay for sustainable products and prioritize brand loyalty. Marketing initiatives should align with our positioning strategy of premium with a digital flair, targeting this modern demographic while leveraging their loyalty and trust towards the brand. Please ensure responses resonate with their preferences for social validation, convenience, and modernity."
         pass
     elif customer_segment == "viola":
+        system_prompt += "Given the demographic composition and psychological tendencies of our customer base, please ensure that responses are crafted with fitting language and speech patterns. This segment, constituting 33% of our customer base, is primarily concentrated in regions like Sweden, Switzerland, and Germany, with an average age of 47. They are predominantly male, often residing in rural areas and smaller towns, with a higher proportion of retirees. Despite being among the lower income brackets, they prioritize value and service, with a preference for used cars from the mid-range segment. Marketing initiatives should align with our positioning strategy of value, focusing on delivering quality and service at a fair price, without unnecessary frills. Please ensure responses reflect their values of personal relationships, price sensitivity, and preference for telephone communication for service bookings. While digitally engaged for price comparison, they are selective in their digital usage and place less emphasis on the car as a status symbol. Engaging this segment may be challenging due to their long-standing personal relationships, but loyalty can be earned through quality service and fair pricing."
         pass
-    else:
-        pass 
 
-
-    system_prompt = "You are an asisstant that helps high end customers in their decission for an Mercedes electric vehicle. You have access to the users profile, Mercedes car database and the chat history. You should use this data to craft a response."
+        
 
     context_new = context.copy()
     context_new.extend([{"role": "system", "content": system_prompt}])
 
-    prompt = f"""Use the following use the following data to craft a response:
+    prompt = f"""Use the following data to craft a response:
 
     User data: {get_meta_data(str(full_profile))}
 
