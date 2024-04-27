@@ -53,7 +53,8 @@ def craft_first_message(user_data: str,context_mem) -> str:
     context = [{'role': 'system',
                 'content': "You are a skilled and helpful assistant, greeting a customer that wants to buy an electric vehicle."
                            "You reference data you gat from the users profile and try do deduce his purchase intention to best tailor your response."
-                           "You leverage data about how to market to the customer, to immediately make a captivating offer."}]
+                           "You leverage data about how to market to the customer, to immediately make a captivating offer."
+                           "You only suggest mercedes cars"}]
     context.extend(context_mem)
     prompt = ("User:\n"
               f"{user_data}\n")
