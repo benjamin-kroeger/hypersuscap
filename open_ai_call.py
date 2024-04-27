@@ -1,19 +1,26 @@
 from openai import OpenAI
+from typing import Literal
+
 client = OpenAI()
 
-messages=[
-		{"role": "system", "content": "You are a hellpfull, sales assistant"}
-	]
 
-def send_message(message:str, role:str, context:list[dict]):
-	context.append({"role": role, "content": message})
+def send_message(message: str, role: Literal['system', 'user',], context: list[dict] = None,
+                 model: Literal['gpt-3.5-turbo', 'gpt-4'] = 'gpt-3.5-turbo'):
+    if context is None:
+        context = []
+    context.append({"role": role, "content": message})
 
-	completion = client.chat.completions.create(
-		model="gpt-3.5-turbo",
-		messages=context
-		)
-	
-	return completion.choices[0].message
+    completion = client.chat.completions.create(
+        model=model,
+        messages=context
+    )
 
-response = send_message("Hello", "system", messages)
-print(response.content)
+    return completion.choices[0].message
+
+
+if __name__ == "__main__":
+    messages = [
+        {"role": "system", "content": "You are a hellpfull, sales assistant"}
+    ]
+    response = send_message("Hello", "system", messages)
+    print(response.content)
