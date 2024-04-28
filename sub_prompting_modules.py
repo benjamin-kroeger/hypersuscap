@@ -137,7 +137,7 @@ def enhance_cta(context):
     context_new.insert(0, {"role": "system", "content": system_prompt})
 
     prompt = f"""Use the last response of the assistant and the data of the CTA to determine if the CTA should be added to the response. 
-    Trigger a CTA, when it seems appropriate. Do not trigger a CTA, if it seems forced.
+    Only Trigger a CTA, when it seems appropriate and only if it fits.
 
     Last Assistant Reponse: {str(context_new[-1]["content"])}
 
@@ -147,7 +147,7 @@ def enhance_cta(context):
 
     messages = [{"role": "system", "content": system_prompt}]
 
-    new_response = send_message(prompt, "user", messages, temperature=0.5, max_tokens=500,model='gpt-4')
+    new_response = send_message(prompt, "user", messages, temperature=0, max_tokens=500)
 
     print("New Response: ", new_response)
 
