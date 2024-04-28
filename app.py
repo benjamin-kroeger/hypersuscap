@@ -74,8 +74,9 @@ if prompt := st.chat_input("What is up?"):
         st.markdown(prompt)
     # write the assistant message
     with st.chat_message("assistant"):
-        stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages)
-        response = st.write_stream(stream)
+        with st.spinner("Thinking..."):
+            stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages)
+            response = st.write_stream(stream)
     # add response to logs
     st.session_state.messages.append({"role": "assistant", "content": response})
     # check if a CTA should be added
