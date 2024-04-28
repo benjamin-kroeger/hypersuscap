@@ -2,18 +2,22 @@ import os
 from constants import user_data
 import streamlit as st
 from openai import OpenAI
-from workflow import give_informed_resp, check_for_cta  
+from workflow import give_informed_resp, check_for_cta
 import logging.config
 
+with open('logo.svg', 'r') as logo:
+    mercedes_icon = logo.read()
 logging.config.fileConfig(
     'logging.config',
     disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
-st.title("sell**A**r**I**")
-
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-with open('logo.svg','r') as logo:
-    mercedes_icon = logo.read()
+
+icon_col, title_col = st.columns(2)
+with icon_col:
+    st.markdown(mercedes_icon, unsafe_allow_html=True)
+with title_col:
+    st.title("sell**A**r**I**")
 
 cols = st.columns(5)
 
@@ -54,14 +58,14 @@ if "messages" not in st.session_state:
 
 # show messages that are in the logs
 for message in st.session_state.messages:
-    with st.chat_message(message["role"],avatar=mercedes_icon if message['role'] == 'assistant' else None):
+    with st.chat_message(message["role"], avatar=mercedes_icon if message['role'] == 'assistant' else None):
         st.markdown(message["content"])
 
 # check if everything is in order to make the introductory message
 if "messages" in st.session_state and "user_data" in st.session_state and len(st.session_state.messages) == 0:
     # write as assistant
-    with st.chat_message("assistant",avatar=mercedes_icon):
-        stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages,first=True)
+    with st.chat_message("assistant", avatar=mercedes_icon):
+        stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages, first=True)
         response = st.write_stream(stream)
     # append the assistant message to the logs
 
@@ -75,7 +79,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("user"):
         st.markdown(prompt)
     # write the assistant message
-    with st.chat_message("assistant",avatar=mercedes_icon):
+    with st.chat_message("assistant", avatar=mercedes_icon):
         with st.spinner("Thinking..."):
             stream = give_informed_resp(user_data=st.session_state.user_data, context_memory=st.session_state.messages)
             response = st.write_stream(stream)
