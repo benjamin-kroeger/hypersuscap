@@ -16,7 +16,6 @@ segments_str = '\n'.join([str(x) for x in segments])
 
 
 def identify_customer_segment(user_data: str, context_mem: list[dict]) -> str:
-
     logger.info("Identifying customer segment")
     # specify the way how a user is mapped to a segment
     context = [{'role': 'system',
@@ -39,14 +38,14 @@ def identify_customer_segment(user_data: str, context_mem: list[dict]) -> str:
 
 def mod_context_segments(current_segment: Literal['franz', 'peter', 'sally', 'viola'], current_context: list[dict]) -> list[dict]:
     # match current_segment:
-        # case 'franz':
-        #     current_context.append({'role': 'system', 'content': ''})
-        # case 'peter':
-        #     current_context.append({'role': 'system', 'content': ''})
-        # case 'sally':
-        #     current_context.append({'role': 'system', 'content': ''})
-        # case 'viola':
-        #     current_context.append({'role': 'system', 'content': ''})
+    # case 'franz':
+    #     current_context.append({'role': 'system', 'content': ''})
+    # case 'peter':
+    #     current_context.append({'role': 'system', 'content': ''})
+    # case 'sally':
+    #     current_context.append({'role': 'system', 'content': ''})
+    # case 'viola':
+    #     current_context.append({'role': 'system', 'content': ''})
 
     return current_context
 
@@ -60,7 +59,10 @@ def craft_first_message(user_data: str, context_mem) -> str:
                 #            "You try to make the introduction as compelling and concise as possible, and highlight features that the user likes."
                 #            "You only suggest mercedes cars"
                 #            "Keep your message as short and engaging as possible, long messages are not appreciated."}]
-                'content': "You are a skilled and helpful assistant, greeting a Mercedes customer and offering insights on electric vehicles. You reference data from the user's profile and try to deduce their purchase intention to best tailor your response. You aim to make the introduction as compelling and concise as possible, highlighting features that the user likes. You only suggest Mercedes cars. Keep your message as short and engaging as possible, as long messages are not appreciated."
+                'content': "You are a skilled and helpful assistant, greeting a Mercedes customer and offering insights on electric vehicles. "
+                           "You reference data from the user's profile and try to deduce their purchase intention to best tailor your response. "
+                           "You aim to make the introduction as compelling and concise as possible, highlighting features that the user likes. "
+                           "You only suggest Mercedes cars. Keep your message as short and engaging as possible, as long messages are not appreciated."
                 }]
     context.extend(context_mem)
     # only pass the user data
@@ -82,13 +84,12 @@ def get_meta_data(context: str):
 
 
 def generate_response(user_data, context: list[dict], car_data: str, customer_segment: str):
-        
     full_profile = "[Current profile:]" + str(user_data) + "[Car data:]" + car_data
 
     print(user_data)
     print(car_data)
 
-    system_prompt = "You are an asisstant that helps high end customers in their decission for an Mercedes electric vehicle." 
+    system_prompt = "You are an assistant that helps high end customers in their decision for an Mercedes electric vehicle."
 
     if customer_segment == "franz":
         system_prompt += "Given the demographic composition and preferences of our customer base, please ensure that responses are crafted with fitting language and speech patterns. This demographic, comprising 4% of our international clientele, demonstrates a penchant for traditional transactions and values personal service. They are typically affluent males, aged 39 and above, residing in rural areas, smaller cities, or suburbs, often in leadership roles or enjoying retirement. This segment boasts high earners who prioritize luxury, convenience, and quality over price sensitivity. Their loyalty to established brands and service providers is unwavering, as they prioritize brand prestige, maintenance, and resale value. Additionally, they have a keen interest in classic luxury experiences and traditional pastimes such as tennis, theater, and cruising. Please ensure that marketing initiatives align with our positioning strategy of high-end luxury, targeting this discerning demographic with a focus on personalized service and luxury experiences."
@@ -103,10 +104,12 @@ def generate_response(user_data, context: list[dict], car_data: str, customer_se
         system_prompt += "Given the demographic composition and psychological tendencies of our customer base, please ensure that responses are crafted with fitting language and speech patterns. This segment, constituting 33% of our customer base, is primarily concentrated in regions like Sweden, Switzerland, and Germany, with an average age of 47. They are predominantly male, often residing in rural areas and smaller towns, with a higher proportion of retirees. Despite being among the lower income brackets, they prioritize value and service, with a preference for used cars from the mid-range segment. Marketing initiatives should align with our positioning strategy of value, focusing on delivering quality and service at a fair price, without unnecessary frills. Please ensure responses reflect their values of personal relationships, price sensitivity, and preference for telephone communication for service bookings. While digitally engaged for price comparison, they are selective in their digital usage and place less emphasis on the car as a status symbol. Engaging this segment may be challenging due to their long-standing personal relationships, but loyalty can be earned through quality service and fair pricing."
         pass
 
-        
+    system_prompt = system_prompt + ("You do not directly mention user data. "
+                                     "You give all the important details, but refrain from empty phrases"
+                                     "Keep your message as short and engaging as possible, as long messages are not appreciated.")
 
     context_new = context.copy()
-    context_new.extend([{"role": "system", "content": system_prompt}])
+    context_new.insert(0,{"role": "system", "content": system_prompt})
 
     prompt = f"""Use the following data to craft a response:
 
@@ -118,9 +121,9 @@ def generate_response(user_data, context: list[dict], car_data: str, customer_se
 
     Generated response: """
 
+    print(system_prompt)
+    return stream_message(prompt, "user", context_new, temperature=0.5, max_tokens=500,model='gpt-4')
 
-    print(system_prompt)    
-    return stream_message(prompt, "user", context_new, temperature=0.25, max_tokens=500)
 
 def enhance_cta(context):
     print("Enhancing CTA")
@@ -129,12 +132,12 @@ def enhance_cta(context):
 
     chosen_cta = enhance_cta_support(context_new)
 
-    
-    system_prompt = "You are an assistant who determines, if a CTA should be added to the response. If you want to trigger a CTA, state 'Yes', otherwise 'No'" 
+    system_prompt = "You are an assistant who determines, if a CTA should be added to the response. If you want to trigger a CTA, state 'Yes', otherwise 'No'"
 
     context_new.insert(0, {"role": "system", "content": system_prompt})
 
-    prompt = f"""Use the last response of the assistant and the data of the CTA to determine if the CTA should be added to the response. Only trigger a CTA, when it seems realy appropriate. Do not trigger a CTA, if it seems forced.
+    prompt = f"""Use the last response of the assistant and the data of the CTA to determine if the CTA should be added to the response. 
+    Trigger a CTA, when it seems appropriate. Do not trigger a CTA, if it seems forced.
 
     Last Assistant Reponse: {str(context_new[-1]["content"])}
 
@@ -144,7 +147,7 @@ def enhance_cta(context):
 
     messages = [{"role": "system", "content": system_prompt}]
 
-    new_response = send_message(prompt, "user", messages, temperature=0.5, max_tokens=500)
+    new_response = send_message(prompt, "user", messages, temperature=0.5, max_tokens=500,model='gpt-4')
 
     print("New Response: ", new_response)
 
@@ -152,21 +155,22 @@ def enhance_cta(context):
         return next(iter(chosen_cta.values()))
     else:
         print("Last else statement in enhance_cta()")
-        return  None
+        return None
+
 
 def enhance_cta_support(context):
     keywords_json = {
         "ArrangeTestDrive": ["test drive", "arrange test drive"],
-        "ConfigureCar_EQE_Limousine": ["configure", "EQE Limousine"],
-        "ConfigureCar_EQS_Limousine": ["configure", "EQS Limousine"],
-        "ConfigureCar_EQA": ["configure", "EQA"],
-        "ConfigureCar_EQB": ["configure", "EQB"],
-        "ConfigureCar_EQE_SUV": ["configure", "EQE SUV"],
-        "ConfigureCar_EQS_SUV": ["configure", "EQS SUV"],
-        "ConfigureCar_Mercedes-Maybach_EQS_SUV": ["configure", "Mercedes-Maybach EQS SUV"],
-        "ConfigureCar_G-Klasse": ["configure", "G-Klasse"],
-        "ConfigureCar_EQT": ["configure", "EQT"],
-        "ConfigureCar_EQV": ["configure", "EQV"],
+        "ConfigureCar_EQE_Limousine": ["configure", "EQE Limousine", "configurations", "configuration"],
+        "ConfigureCar_EQS_Limousine": ["configure", "EQS Limousine", "configurations", "configuration"],
+        "ConfigureCar_EQA": ["configure", "EQA", "configurations", "configuration"],
+        "ConfigureCar_EQB": ["configure", "EQB", "configurations", "configuration"],
+        "ConfigureCar_EQE_SUV": ["configure", "EQE SUV", "configurations", "configuration"],
+        "ConfigureCar_EQS_SUV": ["configure", "EQS SUV", "configurations", "configuration"],
+        "ConfigureCar_Mercedes-Maybach_EQS_SUV": ["configure", "Mercedes-Maybach EQS SUV", "configurations", "configuration"],
+        "ConfigureCar_G-Klasse": ["configure", "G-Klasse", "configurations", "configuration"],
+        "ConfigureCar_EQT": ["configure", "EQT", "configurations", "configuration"],
+        "ConfigureCar_EQV": ["configure", "EQV", "configurations", "configuration"],
         "GeneralInforamtion": ["electric cars", "general information"]
     }
 
