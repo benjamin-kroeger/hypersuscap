@@ -73,6 +73,10 @@ if "messages" in st.session_state and "user_data" in st.session_state and len(st
 
 # gets triggered if the user submits a text
 if prompt := st.chat_input("What is up?"):
+
+    if "user_data"  not in st.session_state:
+        st.session_state.user_data = {}
+
     # add the user input to the logs
     st.session_state.messages.append({"role": "user", "content": prompt})
     # write the user message
