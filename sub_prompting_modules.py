@@ -147,7 +147,7 @@ def enhance_cta(context):
 
     messages = [{"role": "system", "content": system_prompt}]
 
-    new_response = send_message(prompt, "user", messages, temperature=0, max_tokens=500)
+    new_response = send_message(prompt, "user", messages, temperature=0.5, max_tokens=500)
 
     print("New Response: ", new_response)
 
